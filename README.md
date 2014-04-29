@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/seuros/state_machines-activemodel.svg?branch=master)](https://travis-ci.org/seuros/state_machines-activemodel)
+[![Code Climate](https://codeclimate.com/github/seuros/state_machines-activemodel.png)](https://codeclimate.com/github/seuros/state_machines-activemodel)
+
 # StateMachines ActiveModel Integration
 
 The ActiveModel integration is useful for both standalone usage and for providing

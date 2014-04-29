@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.files         = `git ls-files -z`.split("\x0")
   spec.test_files    = spec.files.grep(/^spec\//)
   spec.require_paths = ['lib']
-
+  spec.required_ruby_version     = '>= 1.9.3'
   spec.add_dependency 'state_machines'    , '>= 0'
   spec.add_dependency 'activemodel' , '>= 3.2'
 
