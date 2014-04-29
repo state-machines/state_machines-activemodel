@@ -12,7 +12,7 @@ observers.
 
 Add this line to your application's Gemfile:
 
-    gem 'state_machine2_activemodel'
+    gem 'state_machines-activemodel'
 
 And then execute:
 
@@ -20,7 +20,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install state_machine2_activemodel
+    $ gem install state_machines-activemodel
 
 ## Usage
 
