@@ -46,19 +46,3 @@ def new_model(&block)
   model.class_eval(&block) if block_given?
   model
 end
-
-
-# Creates a new ActiveModel observer
-def new_observer(model, &block)
-  observer = Class.new(ActiveModel::Observer) do
-    attr_accessor :notifications
-
-    def initialize
-      super
-      @notifications = []
-    end
-  end
-  observer.observe(model)
-  observer.class_eval(&block) if block_given?
-  observer
-end

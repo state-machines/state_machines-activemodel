@@ -367,10 +367,10 @@ module StateMachines
 
       @defaults = {}
 
-      # Classes that include ActiveModel::Observing or ActiveModel::Validations
+      # Classes that include ActiveModel::Validations
       # will automatically use the ActiveModel integration.
       def self.matching_ancestors
-        %w(ActiveModel ActiveModel::Observing ActiveModel::Validations)
+        %w(ActiveModel ActiveModel::Validations)
       end
 
       # Adds a validation error to the given object 
@@ -404,11 +404,6 @@ module StateMachines
       end
 
       protected
-      # Whether observers are supported in the integration.  Only true if
-      # ActiveModel::Observer is available.
-      def supports_observers?
-        defined?(::ActiveModel::Observing) && owner_class <= ::ActiveModel::Observing
-      end
 
       # Whether validations are supported in the integration.  Only true if
       # the ActiveModel feature is enabled on the owner class.
@@ -462,7 +457,6 @@ module StateMachines
       # Build a list of ancestors for the given class to use when
       # determining which localization key to use for a particular string.
       def ancestors_for(klass)
-        load_observer_extensions
         klass.lookup_ancestors
       end
 
@@ -470,10 +464,6 @@ module StateMachines
       def after_initialize
         super()
         load_locale
-        if supports_observers?
-          load_observer_extensions
-          add_default_callbacks
-        end
       end
 
       # Loads any locale files needed for translating validation errors
@@ -485,20 +475,6 @@ module StateMachines
         "#{File.dirname(__FILE__)}/active_model/locale.rb"
       end
 
-      # Loads extensions to ActiveModel's Observers
-      def load_observer_extensions
-        require 'state_machines/integrations/active_model/observer'
-        require 'state_machines/integrations/active_model/observer_update'
-      end
-
-      # Adds a set of default callbacks that utilize the Observer extensions
-      def add_default_callbacks
-        if supports_observers?
-          callbacks[:before] << Callback.new(:before) { |object, transition| notify(:before, object, transition) }
-          callbacks[:after] << Callback.new(:after) { |object, transition| notify(:after, object, transition) }
-          callbacks[:failure] << Callback.new(:failure) { |object, transition| notify(:after_failure_to, object, transition) }
-        end
-      end
 
       # Skips defining reader/writer methods since this is done automatically
       def define_state_accessor
@@ -527,14 +503,7 @@ module StateMachines
       # initialization.
       def add_callback(type, options, &block)
         options[:terminator] = callback_terminator
-
-        if supports_observers?
-          @callbacks[type == :around ? :before : type].insert(-2, callback = Callback.new(type, options, &block))
-          add_states(callback.known_states)
-          callback
-        else
-          super
-        end
+        super
       end
 
       # Configures new states with the built-in humanize scheme
@@ -551,43 +520,7 @@ module StateMachines
         end
       end
 
-      # Notifies observers on the given object that a callback occurred
-      # involving the given transition.  This will attempt to call the
-      # following methods on observers:
-      # * <tt>#{type}_#{qualified_event}_from_#{from}_to_#{to}</tt>
-      # * <tt>#{type}_#{qualified_event}_from_#{from}</tt>
-      # * <tt>#{type}_#{qualified_event}_to_#{to}</tt>
-      # * <tt>#{type}_#{qualified_event}</tt>
-      # * <tt>#{type}_transition_#{machine_name}_from_#{from}_to_#{to}</tt>
-      # * <tt>#{type}_transition_#{machine_name}_from_#{from}</tt>
-      # * <tt>#{type}_transition_#{machine_name}_to_#{to}</tt>
-      # * <tt>#{type}_transition_#{machine_name}</tt>
-      # * <tt>#{type}_transition</tt>
-      #
-      # This will always return true regardless of the results of the
-      # callbacks.
-      def notify(type, object, transition)
-        name = self.name
-        event = transition.qualified_event
-        from = transition.from_name || 'nil'
-        to = transition.to_name || 'nil'
 
-        # Machine-specific updates
-        ["#{type}_#{event}", "#{type}_transition_#{name}"].each do |event_segment|
-          ["_from_#{from}", nil].each do |from_segment|
-            ["_to_#{to}", nil].each do |to_segment|
-              object.class.changed if object.class.respond_to?(:changed)
-              object.class.notify_observers('update_with_transition', ObserverUpdate.new([event_segment, from_segment, to_segment].join, object, transition))
-            end
-          end
-        end
-
-        # Generic updates
-        object.class.changed if object.class.respond_to?(:changed)
-        object.class.notify_observers('update_with_transition', ObserverUpdate.new("#{type}_transition", object, transition))
-
-        true
-      end
     end
   end
 end

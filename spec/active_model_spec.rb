@@ -636,4 +636,166 @@ describe StateMachines::Integrations::ActiveModel do
       assert record.valid?
     end
   end
+
+
+
+  context 'WithInternationalization' do
+    before(:each) do
+      I18n.backend = I18n::Backend::Simple.new
+
+      # Initialize the backend
+      I18n.backend.translate(:en, 'activemodel.errors.messages.invalid_transition', :event => 'ignite', :value => 'idling')
+
+      @model = new_model { include ActiveModel::Validations }
+    end
+
+    it 'should_use_defaults' do
+      I18n.backend.store_translations(:en, {
+          :activemodel => {:errors => {:messages => {:invalid_transition => 'cannot %{event}'}}}
+      })
+
+      machine = StateMachines::Machine.new(@model, :action => :save)
+      machine.state :parked, :idling
+      machine.event :ignite
+
+      record = @model.new(:state => 'idling')
+
+      machine.invalidate(record, :state, :invalid_transition, [[:event, 'ignite']])
+      assert_equal ['State cannot ignite'], record.errors.full_messages
+    end
+
+    it 'should_allow_customized_error_key' do
+      I18n.backend.store_translations(:en, {
+          :activemodel => {:errors => {:messages => {:bad_transition => 'cannot %{event}'}}}
+      })
+
+      machine = StateMachines::Machine.new(@model, :action => :save, :messages => {:invalid_transition => :bad_transition})
+      machine.state :parked, :idling
+
+      record = @model.new
+      record.state = 'idling'
+
+      machine.invalidate(record, :state, :invalid_transition, [[:event, 'ignite']])
+      assert_equal ['State cannot ignite'], record.errors.full_messages
+    end
+
+    it 'should_allow_customized_error_string' do
+      machine = StateMachines::Machine.new(@model, :action => :save, :messages => {:invalid_transition => 'cannot %{event}'})
+      machine.state :parked, :idling
+
+      record = @model.new(:state => 'idling')
+
+      machine.invalidate(record, :state, :invalid_transition, [[:event, 'ignite']])
+      assert_equal ['State cannot ignite'], record.errors.full_messages
+    end
+
+    it 'should_allow_customized_state_key_scoped_to_class_and_machine' do
+      I18n.backend.store_translations(:en, {
+          :activemodel => {:state_machines => {:'bar/foo' => {:state => {:states => {:parked => 'shutdown'}}}}}
+      })
+
+      machine = StateMachines::Machine.new(@model)
+      machine.state :parked
+
+      assert_equal 'shutdown', machine.state(:parked).human_name
+    end
+
+    it 'should_allow_customized_state_key_scoped_to_class' do
+      I18n.backend.store_translations(:en, {
+          :activemodel => {:state_machines => {:'bar/foo' => {:states => {:parked => 'shutdown'}}}}
+      })
+
+      machine = StateMachines::Machine.new(@model)
+      machine.state :parked
+
+      assert_equal 'shutdown', machine.state(:parked).human_name
+    end
+
+    it 'should_allow_customized_state_key_scoped_to_machine' do
+      I18n.backend.store_translations(:en, {
+          :activemodel => {:state_machines => {:state => {:states => {:parked => 'shutdown'}}}}
+      })
+
+      machine = StateMachines::Machine.new(@model)
+      machine.state :parked
+
+      assert_equal 'shutdown', machine.state(:parked).human_name
+    end
+
+    it 'should_allow_customized_state_key_unscoped' do
+      I18n.backend.store_translations(:en, {
+          :activemodel => {:state_machines => {:states => {:parked => 'shutdown'}}}
+      })
+
+      machine = StateMachines::Machine.new(@model)
+      machine.state :parked
+
+      assert_equal 'shutdown', machine.state(:parked).human_name
+    end
+
+    it 'should_support_nil_state_key' do
+      I18n.backend.store_translations(:en, {
+          :activemodel => {:state_machines => {:states => {:nil => 'empty'}}}
+      })
+
+      machine = StateMachines::Machine.new(@model)
+
+      assert_equal 'empty', machine.state(nil).human_name
+    end
+
+    it 'should_allow_customized_event_key_scoped_to_class_and_machine' do
+      I18n.backend.store_translations(:en, {
+          :activemodel => {:state_machines => {:'bar/foo' => {:state => {:events => {:park => 'stop'}}}}}
+      })
+
+      machine = StateMachines::Machine.new(@model)
+      machine.event :park
+
+      assert_equal 'stop', machine.event(:park).human_name
+    end
+
+    it 'should_allow_customized_event_key_scoped_to_class' do
+      I18n.backend.store_translations(:en, {
+          :activemodel => {:state_machines => {:'bar/foo' => {:events => {:park => 'stop'}}}}
+      })
+
+      machine = StateMachines::Machine.new(@model)
+      machine.event :park
+
+      assert_equal 'stop', machine.event(:park).human_name
+    end
+
+    it 'should_allow_customized_event_key_scoped_to_machine' do
+      I18n.backend.store_translations(:en, {
+          :activemodel => {:state_machines => {:state => {:events => {:park => 'stop'}}}}
+      })
+
+      machine = StateMachines::Machine.new(@model)
+      machine.event :park
+
+      assert_equal 'stop', machine.event(:park).human_name
+    end
+
+    it 'should_allow_customized_event_key_unscoped' do
+      I18n.backend.store_translations(:en, {
+          :activemodel => {:state_machines => {:events => {:park => 'stop'}}}
+      })
+
+      machine = StateMachines::Machine.new(@model)
+      machine.event :park
+
+      assert_equal 'stop', machine.event(:park).human_name
+    end
+
+    it 'should_only_add_locale_once_in_load_path' do
+      assert_equal 1, I18n.load_path.select { |path| path =~ %r{active_model/locale\.rb$} }.length
+
+      # Create another ActiveModel model that will triger the i18n feature
+      new_model
+
+      assert_equal 1, I18n.load_path.select { |path| path =~ %r{active_model/locale\.rb$} }.length
+    end
+
+  end
+
 end

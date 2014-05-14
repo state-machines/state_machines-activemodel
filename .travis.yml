@@ -6,14 +6,11 @@ script: bundle exec rake
 rvm:
   - 1.9.3
   - 2.0.0
-  - 2.1.1
+  - 2.1.2
   - jruby-19mode
   - rbx-2
 gemfile:
   - gemfiles/active_model_3.2.gemfile
-  - gemfiles/active_model_4.0_obs.gemfile
   - gemfiles/active_model_4.0.gemfile
-  - gemfiles/active_model_4.1_obs.gemfile
   - gemfiles/active_model_4.1.gemfile
-  - gemfiles/active_model_edge_obs.gemfile
   - gemfiles/active_model_edge.gemfile

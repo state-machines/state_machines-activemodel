@@ -3,16 +3,6 @@ require 'spec_helper'
 describe StateMachines::Integrations::ActiveModel do
   it { expect(StateMachines::Integrations::ActiveModel.integration_name).to eq(:active_model) }
 
-  it 'should_be_available' do
-    expect(StateMachines::Integrations::ActiveModel.available?).to be_truthy
-  end
-
-  if defined?(ActiveModel::Observing)
-    it 'should_match_if_class_includes_observing_feature' do
-      expect(StateMachines::Integrations::ActiveModel.matches?(new_model { include ActiveModel::Observing })).to be_truthy
-    end
-  end
-
   it 'should_match_if_class_includes_validations_feature' do
     expect(StateMachines::Integrations::ActiveModel.matches?(new_model { include ActiveModel::Validations })).to be_truthy
   end
@@ -23,5 +13,14 @@ describe StateMachines::Integrations::ActiveModel do
 
   it 'should_have_no_defaults' do
     expect(StateMachines::Integrations::ActiveModel.defaults).to eq({})
+  end
+
+  describe '.matching_ancestors' do
+    it do
+      expect(StateMachines::Integrations::ActiveModel.matching_ancestors).to include('ActiveModel')
+    end
+    it do
+      expect(StateMachines::Integrations::ActiveModel.matching_ancestors).to include('ActiveModel::Validations')
+    end
   end
 end
