@@ -3,14 +3,28 @@ before_install:
  - gem install bundler
  - bundle install
 script: bundle exec rake
+
 rvm:
   - 1.9.3
   - 2.0.0
   - 2.1.2
+  - ruby-head
   - jruby-19mode
   - rbx-2
+
 gemfile:
   - gemfiles/active_model_3.2.gemfile
   - gemfiles/active_model_4.0.gemfile
   - gemfiles/active_model_4.1.gemfile
   - gemfiles/active_model_edge.gemfile
+
+matrix:
+  exclude:
+    - rvm: ruby-head
+      gemfile: gemfiles/active_model_3.2.gemfile
+    - rvm: ruby-head
+      gemfile: gemfiles/active_model_4.0.gemfile
+    - rvm: ruby-head
+      gemfile: gemfiles/active_model_4.1.gemfile
+  allow_failures:
+    - rvm: ruby-head
