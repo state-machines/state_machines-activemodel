@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/seuros/state_machines-activemodel.svg?branch=master)](https://travis-ci.org/seuros/state_machines-activemodel)
-[![Code Climate](https://codeclimate.com/github/seuros/state_machines-activemodel.png)](https://codeclimate.com/github/seuros/state_machines-activemodel)
+[![Build Status](https://travis-ci.org/state-machines/state_machines-activemodel.svg?branch=master)](https://travis-ci.org/state-machines/state_machines-activemodel)
+[![Code Climate](https://codeclimate.com/github/state-machines/state_machines-activemodel.png)](https://codeclimate.com/github/state-machines/state_machines-activemodel)
 
 # StateMachines ActiveModel Integration
 
@@ -85,7 +85,7 @@ Active Model 4.1+
 
 ## Contributing
 
-1. Fork it ( https://github.com/seuros/state_machines-activemodel/fork )
+1. Fork it ( https://github.com/state-machines/state_machines-activemodel/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
