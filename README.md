@@ -5,8 +5,7 @@
 
 The ActiveModel integration is useful for both standalone usage and for providing
 the base implementation for ORMs which implement the ActiveModel API.  This
-integration adds support for validation errors, dirty attribute tracking, and
-observers.
+integration adds support for validation errors and dirty attribute tracking.
 
 ## Installation
 
@@ -29,7 +28,6 @@ Or install it yourself as:
 class Vehicle
   include ActiveModel::Dirty
   include ActiveModel::Validations
-  include ActiveModel::Observing
 
   attr_accessor :state
   define_attribute_methods [:state]
@@ -79,6 +77,11 @@ class VehicleObserver < ActiveModel::Observer
 end
 
 ```
+
+Dependencies
+
+Active Model 4.1+
+
 
 ## Contributing
 

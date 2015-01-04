@@ -19,3 +19,4 @@ tmp
 *.a
 mkmf.log
 .idea/
+*.lock
