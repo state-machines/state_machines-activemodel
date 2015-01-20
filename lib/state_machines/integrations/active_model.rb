@@ -14,14 +14,12 @@ module StateMachines
     # If using ActiveModel directly within your class, then any one of the
     # following features need to be included in order for the integration to be
     # detected:
-    # * ActiveModel::Observing
     # * ActiveModel::Validations
     #
     # Below is an example of a simple state machine defined within an
     # ActiveModel class:
     #
     #   class Vehicle
-    #     include ActiveModel::Observing
     #     include ActiveModel::Validations
     #
     #     attr_accessor :state
@@ -135,7 +133,6 @@ module StateMachines
     # you can build two state machines (one public and one protected) like so:
     #
     #   class Vehicle
-    #     include ActiveModel::MassAssignmentSecurity
     #     attr_accessor :state
     #
     #     attr_protected :state_event # Prevent access to events in the first machine

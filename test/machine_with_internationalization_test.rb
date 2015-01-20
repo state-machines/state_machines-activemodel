@@ -4,9 +4,6 @@ require 'i18n'
 class MachineWithInternationalizationTest < BaseTestCase
   def setup
     I18n.backend = I18n::Backend::Simple.new
-    # Initialize the backend
-    I18n.backend.translate(:en, 'activemodel.errors.messages.invalid_transition', event: 'ignite', value: 'idling')
-
     @model = new_model { include ActiveModel::Validations }
   end
 
@@ -22,7 +19,7 @@ class MachineWithInternationalizationTest < BaseTestCase
     record = @model.new(state: 'idling')
 
     machine.invalidate(record, :state, :invalid_transition, [[:event, 'ignite']])
-    assert_equal ['State cannot ignite'], record.errors.full_messages
+    assert_equal ['State cannot transition via "ignite"'], record.errors.full_messages
   end
 
   def test_should_allow_customized_error_key
