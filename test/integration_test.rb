@@ -1,8 +1,12 @@
 require_relative 'test_helper'
 
 class IntegrationTest < BaseTestCase
-  def test_should_be_registred
+  def test_should_be_registered
     assert_includes StateMachines::Integrations.list, StateMachines::Integrations::ActiveModel
+  end
+
+  def test_should_register_one_integration
+    assert_equal 1, StateMachines::Integrations.list.size
   end
 
   def test_should_have_an_integration_name

@@ -516,5 +516,6 @@ module StateMachines
         end
       end
     end
+    register(ActiveModel)
   end
 end
