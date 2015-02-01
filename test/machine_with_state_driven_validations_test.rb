@@ -20,8 +20,6 @@ class MachineWithStateDrivenValidationsTest < BaseTestCase
   end
 
   def test_should_be_invalid_if_validation_fails_within_state_scope
-    # FIXME
-    skip
     record = @model.new(state: 'first_gear', seatbelt: nil)
     assert !record.valid?
   end

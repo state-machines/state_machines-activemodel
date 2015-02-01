@@ -23,7 +23,6 @@ class MachineWithFailedBeforeCallbacksTest < BaseTestCase
   end
 
   def test_should_not_change_current_state
-    skip
     assert_equal 'parked', @record.state
   end
 

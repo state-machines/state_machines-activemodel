@@ -402,6 +402,14 @@ module StateMachines
 
       protected
 
+      def define_state_initializer
+        define_helper :instance, <<-end_eval, __FILE__, __LINE__ + 1
+          def initialize(params = {})
+            self.class.state_machines.initialize_states(self, {}, params) { super }
+          end
+        end_eval
+      end
+
       # Whether validations are supported in the integration.  Only true if
       # the ActiveModel feature is enabled on the owner class.
       def supports_validations?

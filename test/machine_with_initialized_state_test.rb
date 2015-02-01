@@ -8,8 +8,6 @@ class MachineWithInitializedStateTest < BaseTestCase
   end
 
   def test_should_allow_nil_initial_state_when_static
-    # FIXME
-    skip
     @machine.state nil
 
     record = @model.new(state: nil)
@@ -25,8 +23,6 @@ class MachineWithInitializedStateTest < BaseTestCase
   end
 
   def test_should_allow_different_initial_state_when_static
-    # FIXME
-    skip
     record = @model.new(state: 'idling')
     assert_equal 'idling', record.state
   end
