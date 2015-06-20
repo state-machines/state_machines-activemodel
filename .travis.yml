@@ -13,6 +13,11 @@ gemfile:
   - gemfiles/active_model_4.2.gemfile
 
 matrix:
+  include:
+    - gemfile: gemfiles/active_model_edge.gemfile
+      rvm: 2.2
   allow_failures:
     - rvm: jruby
     - rvm: rbx-2
+    - gemfile: gemfiles/active_model_edge.gemfile
+      rvm: 2.2
