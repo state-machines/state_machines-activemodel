@@ -473,7 +473,10 @@ module StateMachines
 
       # Loads any locale files needed for translating validation errors
       def load_locale
-        I18n.load_path.unshift(locale_path) unless I18n.load_path.include?(locale_path)
+        unless I18n.load_path.include?(locale_path)
+          I18n.load_path.unshift(locale_path)
+          I18n.reload!
+        end
       end
 
       def locale_path
