@@ -367,7 +367,7 @@ module StateMachines
       # Classes that include ActiveModel::Validations
       # will automatically use the ActiveModel integration.
       def self.matching_ancestors
-        %w(ActiveModel ActiveModel::Validations)
+        [::ActiveModel, ::ActiveModel::Validations]
       end
 
       # Adds a validation error to the given object
