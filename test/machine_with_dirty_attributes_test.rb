@@ -5,6 +5,12 @@ class MachineWithDirtyAttributesTest < BaseTestCase
     @model = new_model do
       include ActiveModel::Dirty
       define_attribute_methods [:state]
+
+      def save
+        super.tap do
+          changes_applied
+        end
+      end
     end
     @machine = StateMachines::Machine.new(@model, initial: :parked)
     @machine.event :ignite

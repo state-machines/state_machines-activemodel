@@ -32,7 +32,6 @@ class BaseTestCase < MiniTest::Test
 
       def initialize(attrs = {})
         attrs.each { |attr, value| send("#{attr}=", value) }
-        @changed_attributes = {}
       end
 
       def attributes
@@ -40,7 +39,6 @@ class BaseTestCase < MiniTest::Test
       end
 
       def save
-        @changed_attributes = {}
         true
       end
     end
