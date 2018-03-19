@@ -6,6 +6,12 @@ class MachineWithDirtyAttributeAndCustomAttributesDuringLoopbackTest < BaseTestC
       include ActiveModel::Dirty
       model_attribute :status
       define_attribute_methods [:status]
+
+      def save
+        super.tap do
+          changes_applied
+        end
+      end
     end
     @machine = StateMachines::Machine.new(@model, :status, initial: :parked)
     @machine.event :park
@@ -21,6 +27,6 @@ class MachineWithDirtyAttributeAndCustomAttributesDuringLoopbackTest < BaseTestC
   end
 
   def test_should_not_track_attribute_changes
-    assert_equal nil, @record.changes['status']
+    assert_nil @record.changes['status']
   end
 end
