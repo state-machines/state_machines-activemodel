@@ -12,11 +12,16 @@ rvm:
   - rbx-2
 
 gemfile:
-  - gemfiles/active_model_4.1.gemfile
   - gemfiles/active_model_4.2.gemfile
 
 matrix:
   include:
+    - gemfile: gemfiles/active_model_4.1.gemfile
+      rvm: 2.1
+    - gemfile: gemfiles/active_model_4.1.gemfile
+      rvm: 2.2.9
+    - gemfile: gemfiles/active_model_4.1.gemfile
+      rvm: 2.3.6
     - gemfile: gemfiles/active_model_5.0.gemfile
       rvm: 2.2.9
     - gemfile: gemfiles/active_model_5.0.gemfile
