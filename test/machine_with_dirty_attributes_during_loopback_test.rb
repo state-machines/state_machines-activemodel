@@ -26,7 +26,7 @@ class MachineWithDirtyAttributesDuringLoopbackTest < BaseTestCase
   end
 
   def test_should_not_track_attribute_changes
-    assert_equal nil, @record.changes['state']
+    assert_nil @record.changes['state']
   end
 end
 class MachineWithDirtyAttributeAndCustomAttributesDuringLoopbackTest < BaseTestCase
@@ -56,6 +56,6 @@ class MachineWithDirtyAttributeAndCustomAttributesDuringLoopbackTest < BaseTestC
   end
 
   def test_should_not_track_attribute_changes
-    assert_equal nil, @record.changes['status']
+    assert_nil @record.changes['status']
   end
 end
