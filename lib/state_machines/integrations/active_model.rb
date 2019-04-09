@@ -465,24 +465,6 @@ module StateMachines
         klass.lookup_ancestors
       end
 
-      # Initializes class-level extensions and defaults for this machine
-      def after_initialize
-        super()
-        load_locale
-      end
-
-      # Loads any locale files needed for translating validation errors
-      def load_locale
-        unless I18n.load_path.include?(locale_path)
-          I18n.load_path.unshift(locale_path)
-          I18n.reload!
-        end
-      end
-
-      def locale_path
-        "#{File.dirname(__FILE__)}/active_model/locale.rb"
-      end
-
       # Skips defining reader/writer methods since this is done automatically
       def define_state_accessor
         name = self.name

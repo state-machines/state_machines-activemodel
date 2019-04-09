@@ -144,28 +144,8 @@ class MachineWithInternationalizationTest < BaseTestCase
     assert_equal 'stop', machine.event(:park).human_name
   end
 
-  def test_should_only_add_locale_once_in_load_path
+  def test_should_have_locale_once_in_load_path
     assert_equal 1, I18n.load_path.select { |path| path =~ %r{active_model/locale\.rb$} }.length
-
-    # Create another ActiveModel model that will triger the i18n feature
-    new_model
-
-    assert_equal 1, I18n.load_path.select { |path| path =~ %r{active_model/locale\.rb$} }.length
-  end
-
-  def test_should_add_locale_to_beginning_of_load_path
-    @original_load_path = I18n.load_path
-    I18n.backend = I18n::Backend::Simple.new
-
-    app_locale = File.dirname(__FILE__) + '/files/en.yml'
-    default_locale = File.dirname(__FILE__) + '/../lib/state_machines/integrations/active_model/locale.rb'
-    I18n.load_path = [app_locale]
-
-    StateMachines::Machine.new(@model)
-
-    assert_equal [default_locale, app_locale].map { |path| File.expand_path(path) }, I18n.load_path.map { |path| File.expand_path(path) }
-  ensure
-    I18n.load_path = @original_load_path
   end
 
   def test_should_prefer_other_locales_first
