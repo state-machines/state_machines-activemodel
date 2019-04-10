@@ -21,6 +21,10 @@ Or install it yourself as:
 
     $ gem install state_machines-activemodel
 
+## Dependencies
+
+Active Model 4.1+
+
 ## Usage
 
 ```ruby
@@ -77,11 +81,6 @@ class VehicleObserver < ActiveModel::Observer
 end
 
 ```
-
-Dependencies
-
-Active Model 4.1+
-
 
 ## Contributing
 
