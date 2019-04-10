@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/state-machines/state_machines-activemodel.svg?branch=master)](https://travis-ci.org/state-machines/state_machines-activemodel)
-[![Code Climate](https://codeclimate.com/github/state-machines/state_machines-activemodel.png)](https://codeclimate.com/github/state-machines/state_machines-activemodel)
+[![Code Climate](https://codeclimate.com/github/state-machines/state_machines-activemodel.svg)](https://codeclimate.com/github/state-machines/state_machines-activemodel)
 
 # StateMachines ActiveModel Integration
 
