@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   spec.required_ruby_version     = '>= 2.0.0'
   spec.add_dependency 'state_machines', '>= 0.5.0'
-  spec.add_dependency 'activemodel', '>= 4.1', '< 6.0'
+  spec.add_dependency 'activemodel', '>= 4.1'
 
   spec.add_development_dependency 'bundler', '>= 1.6'
   spec.add_development_dependency 'rake', '>= 10'
