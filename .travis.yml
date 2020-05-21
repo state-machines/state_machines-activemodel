@@ -2,8 +2,6 @@ language: ruby
 cache: bundler
 
 rvm:
-  - 2.1
-  - 2.2.9
   - 2.3.8
   - 2.4.6
   - 2.5.5
@@ -18,11 +16,7 @@ gemfile:
 matrix:
   include:
     - gemfile: gemfiles/active_model_4.1.gemfile
-      rvm: 2.2.9
-    - gemfile: gemfiles/active_model_4.1.gemfile
       rvm: 2.3.8
-    - gemfile: gemfiles/active_model_5.0.gemfile
-      rvm: 2.2.9
     - gemfile: gemfiles/active_model_5.0.gemfile
       rvm: 2.3.8
     - gemfile: gemfiles/active_model_5.0.gemfile
@@ -32,8 +26,6 @@ matrix:
     - gemfile: gemfiles/active_model_5.0.gemfile
       rvm: 2.6.3
     - gemfile: gemfiles/active_model_5.1.gemfile
-      rvm: 2.2.9
-    - gemfile: gemfiles/active_model_5.1.gemfile
       rvm: 2.3.8
     - gemfile: gemfiles/active_model_5.1.gemfile
       rvm: 2.4.6
@@ -41,8 +33,6 @@ matrix:
       rvm: 2.5.5
     - gemfile: gemfiles/active_model_5.1.gemfile
       rvm: 2.6.3
-    - gemfile: gemfiles/active_model_5.2.gemfile
-      rvm: 2.2.9
     - gemfile: gemfiles/active_model_5.2.gemfile
       rvm: 2.3.8
     - gemfile: gemfiles/active_model_5.2.gemfile
