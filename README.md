@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/state-machines/state_machines-activemodel.svg?branch=master)](https://travis-ci.org/state-machines/state_machines-activemodel)
+[![Build Status](https://travis-ci.com/state-machines/state_machines-activemodel.svg?branch=master)](https://travis-ci.org/state-machines/state_machines-activemodel)
 [![Code Climate](https://codeclimate.com/github/state-machines/state_machines-activemodel.svg)](https://codeclimate.com/github/state-machines/state_machines-activemodel)
 
 # StateMachines ActiveModel Integration
@@ -23,7 +23,7 @@ Or install it yourself as:
 
 ## Dependencies
 
-Active Model 4.1+
+Active Model 5.1+
 
 ## Usage
 
