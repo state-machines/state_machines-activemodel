@@ -184,7 +184,9 @@ module StateMachines
     # == Observers
     #
     # In order to hook in observer support for your application, the
-    # ActiveModel::Observing feature must be included.  Because of the way
+    # ActiveModel::Observing feature must be included.  This can be added by including the
+    # https://github.com/state-machines/state_machines-activemodel-observers gem in your 
+    # Gemfile. Because of the way
     # ActiveModel observers are designed, there is less flexibility around the
     # specific transitions that can be hooked in.  However, a large number of
     # hooks *are* supported.  For example, if a transition for a object's
