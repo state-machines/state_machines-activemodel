@@ -1,0 +1,43 @@
+name: Ruby
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: ['2.6', '2.7', '3.0', 'jruby', 'truffleruby']
+        gemfiles:
+          - gemfiles/active_model_5.1.gemfile
+          - gemfiles/active_model_5.2.gemfile
+          - gemfiles/active_model_6.0.gemfile
+          - gemfiles/active_model_6.1.gemfile
+          - gemfiles/active_model_edge.gemfile
+        exclude:
+          - ruby-version: '3.0'
+            gemfiles: gemfiles/active_model_5.1.gemfile
+          - ruby-version: '3.0'
+            gemfiles: gemfiles/active_model_5.2.gemfile
+          - ruby-version: '2.6'
+            gemfiles: gemfiles/active_model_edge.gemfile
+          - ruby-version: 'jruby'
+            gemfiles: gemfiles/active_model_edge.gemfile
+          - ruby-version: 'truffleruby'
+            gemfiles: gemfiles/active_model_edge.gemfile
+    env:
+      BUNDLE_GEMFILE:  ${{ matrix.gemfiles }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true
+    - name: Run Tests
+      run: bundle exec rake
