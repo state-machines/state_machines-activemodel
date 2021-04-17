@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/state-machines/state_machines-activemodel.svg?branch=master)](https://travis-ci.org/state-machines/state_machines-activemodel)
+![Build Status](https://github.com/state-machines/state_machines-activemodel/actions/workflows/ruby.yml/badge.svg)
 [![Code Climate](https://codeclimate.com/github/state-machines/state_machines-activemodel.svg)](https://codeclimate.com/github/state-machines/state_machines-activemodel)
 
 # StateMachines ActiveModel Integration
