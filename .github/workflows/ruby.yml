@@ -18,7 +18,17 @@ jobs:
           - gemfiles/active_model_6.0.gemfile
           - gemfiles/active_model_6.1.gemfile
           - gemfiles/active_model_edge.gemfile
-
+        exclude:
+          - ruby-version: '3.0'
+            gemfiles: gemfiles/active_model_5.1.gemfile
+          - ruby-version: '3.0'
+            gemfiles: gemfiles/active_model_5.2.gemfile
+          - ruby-version: '2.6'
+            gemfiles: gemfiles/active_model_edge.gemfile
+          - ruby-version: 'jruby'
+            gemfiles: gemfiles/active_model_edge.gemfile
+          - ruby-version: 'truffleruby'
+            gemfiles: gemfiles/active_model_edge.gemfile
     env:
       BUNDLE_GEMFILE:  ${{ matrix.gemfiles }}
 
@@ -29,5 +39,5 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true
-    - name: Run appraisal
+    - name: Run Tests
       run: bundle exec rake
