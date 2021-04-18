@@ -16,7 +16,7 @@ class MachineWithInitializedAliasedAttributeTest < BaseTestCase
     assert record.state?(:started)
   end
 
-  def test_should_not_original_attribute_value_without_attribute_methods
+  def test_should_not_match_original_attribute_value_without_attribute_methods
     model = new_model do
       alias_attribute :custom_status, :state
     end
