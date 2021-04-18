@@ -407,7 +407,7 @@ module StateMachines
       def define_state_initializer
         define_helper :instance, <<-end_eval, __FILE__, __LINE__ + 1
           def initialize(params = {})
-            params = params.transform_keys do |key|
+            params.transform_keys! do |key|
               self.class.attribute_aliases[key.to_s] || key.to_s
             end if self.class.respond_to?(:attribute_aliases)
 
