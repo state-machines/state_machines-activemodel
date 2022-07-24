@@ -17,12 +17,19 @@ jobs:
           - gemfiles/active_model_5.2.gemfile
           - gemfiles/active_model_6.0.gemfile
           - gemfiles/active_model_6.1.gemfile
+          - gemfiles/active_model_7.0.gemfile
           - gemfiles/active_model_edge.gemfile
         exclude:
           - ruby-version: '3.0'
             gemfiles: gemfiles/active_model_5.1.gemfile
           - ruby-version: '3.0'
             gemfiles: gemfiles/active_model_5.2.gemfile
+          - ruby-version: '2.6'
+            gemfiles: gemfiles/active_model_7.0.gemfile
+          - ruby-version: 'jruby'
+            gemfiles: gemfiles/active_model_7.0.gemfile
+          - ruby-version: 'truffleruby'
+            gemfiles: gemfiles/active_model_7.0.gemfile
           - ruby-version: '2.6'
             gemfiles: gemfiles/active_model_edge.gemfile
           - ruby-version: 'jruby'
