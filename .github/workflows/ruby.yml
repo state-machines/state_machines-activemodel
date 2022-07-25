@@ -24,6 +24,10 @@ jobs:
             gemfiles: gemfiles/active_model_5.1.gemfile
           - ruby-version: '3.0'
             gemfiles: gemfiles/active_model_5.2.gemfile
+          - ruby-version: 'truffleruby'
+            gemfiles: gemfiles/active_model_5.1.gemfile
+          - ruby-version: 'truffleruby'
+            gemfiles: gemfiles/active_model_5.2.gemfile
           - ruby-version: '2.6'
             gemfiles: gemfiles/active_model_7.0.gemfile
           - ruby-version: 'jruby'
@@ -36,6 +40,7 @@ jobs:
             gemfiles: gemfiles/active_model_edge.gemfile
           - ruby-version: 'truffleruby'
             gemfiles: gemfiles/active_model_edge.gemfile
+
     env:
       BUNDLE_GEMFILE:  ${{ matrix.gemfiles }}
 
