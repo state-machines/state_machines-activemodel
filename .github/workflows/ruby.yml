@@ -11,10 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['2.6', '2.7', '3.0', 'jruby', 'truffleruby']
+        ruby-version: ['2.7', '3.0', 'jruby', 'truffleruby']
         gemfiles:
-          - gemfiles/active_model_5.1.gemfile
-          - gemfiles/active_model_5.2.gemfile
           - gemfiles/active_model_6.0.gemfile
           - gemfiles/active_model_6.1.gemfile
           - gemfiles/active_model_7.0.gemfile
@@ -28,14 +26,10 @@ jobs:
             gemfiles: gemfiles/active_model_5.1.gemfile
           - ruby-version: 'truffleruby'
             gemfiles: gemfiles/active_model_5.2.gemfile
-          - ruby-version: '2.6'
-            gemfiles: gemfiles/active_model_7.0.gemfile
           - ruby-version: 'jruby'
             gemfiles: gemfiles/active_model_7.0.gemfile
           - ruby-version: 'truffleruby'
             gemfiles: gemfiles/active_model_7.0.gemfile
-          - ruby-version: '2.6'
-            gemfiles: gemfiles/active_model_edge.gemfile
           - ruby-version: 'jruby'
             gemfiles: gemfiles/active_model_edge.gemfile
           - ruby-version: 'truffleruby'
