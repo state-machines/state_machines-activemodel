@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 gem "activemodel", "~> 7.0.0"
 
-platforms :mri_20, :mri_21 do
+platforms :mri do
   gem "pry-byebug"
 end
 
