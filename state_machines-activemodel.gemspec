@@ -1,6 +1,3 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require_relative 'lib/state_machines/integrations/active_model/version'
 
 Gem::Specification.new do |spec|
@@ -13,11 +10,11 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/state-machines/state_machines-activemodel'
   spec.license       = 'MIT'
 
-  spec.files         = `git ls-files -z`.split("\x0")
-  spec.test_files    = spec.files.grep(/^test\//)
+  spec.files         = Dir.glob('{lib}/**/*') + %w(LICENSE.txt README.md)
+  spec.test_files    = Dir.glob('test/**/*_test.rb')
   spec.require_paths = ['lib']
-  spec.required_ruby_version     = '>= 2.6.8'
-  spec.add_dependency 'state_machines', '>= 0.5.0'
+  spec.required_ruby_version     = '>= 3.0.0'
+  spec.add_dependency 'state_machines', '>= 0.6.0'
   spec.add_dependency 'activemodel', '>= 6.0'
 
   spec.add_development_dependency 'bundler', '>= 1.6'
