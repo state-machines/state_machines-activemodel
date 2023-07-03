@@ -1,4 +1,4 @@
-require_relative 'test_helper'
+require 'test_helper'
 
 class MachineWithInitializedAliasedAttributeTest < BaseTestCase
   def test_should_match_original_attribute_value_with_attribute_methods
