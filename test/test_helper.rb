@@ -10,7 +10,7 @@ require 'active_support/all'
 Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new]
 I18n.enforce_available_locales = true
 
-class BaseTestCase < MiniTest::Test
+class BaseTestCase < ActiveSupport::TestCase
   protected
   # Creates a new ActiveModel model (and the associated table)
   def new_model(&block)
