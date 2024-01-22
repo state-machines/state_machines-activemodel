@@ -16,11 +16,12 @@ jobs:
           - gemfiles/active_model_6.0.gemfile
           - gemfiles/active_model_6.1.gemfile
           - gemfiles/active_model_7.0.gemfile
+          - gemfiles/active_model_7.1.gemfile
           - gemfiles/active_model_edge.gemfile
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfiles }}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
