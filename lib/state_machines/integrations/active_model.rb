@@ -185,7 +185,7 @@ module StateMachines
     #
     # In order to hook in observer support for your application, the
     # ActiveModel::Observing feature must be included.  This can be added by including the
-    # https://github.com/state-machines/state_machines-activemodel-observers gem in your 
+    # https://github.com/state-machines/state_machines-activemodel-observers gem in your
     # Gemfile. Because of the way
     # ActiveModel observers are designed, there is less flexibility around the
     # specific transitions that can be hooked in.  However, a large number of
@@ -504,7 +504,7 @@ module StateMachines
       # Configures new states with the built-in humanize scheme
       def add_states(*)
         super.each do |new_state|
-          new_state.human_name = ->(state, klass) { translate(klass, :state, state.name) }
+          new_state.human_name ||= ->(state, klass) { translate(klass, :state, state.name) }
         end
       end
 
