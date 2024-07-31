@@ -189,6 +189,64 @@ module StateMachines
     # Note, also, that the transition can be accessed by simply defining
     # additional arguments in the callback block.
     #
+    # == Observers
+    #
+    # In order to hook in observer support for your application, the
+    # ActiveModel::Observing feature must be included.  This can be added by including the
+    # https://github.com/state-machines/state_machines-activemodel-observers gem in your
+    # Gemfile. Because of the way
+    # ActiveModel observers are designed, there is less flexibility around the
+    # specific transitions that can be hooked in.  However, a large number of
+    # hooks *are* supported.  For example, if a transition for a object's
+    # +state+ attribute changes the state from +parked+ to +idling+ via the
+    # +ignite+ event, the following observer methods are supported:
+    # * before/after/after_failure_to-_ignite_from_parked_to_idling
+    # * before/after/after_failure_to-_ignite_from_parked
+    # * before/after/after_failure_to-_ignite_to_idling
+    # * before/after/after_failure_to-_ignite
+    # * before/after/after_failure_to-_transition_state_from_parked_to_idling
+    # * before/after/after_failure_to-_transition_state_from_parked
+    # * before/after/after_failure_to-_transition_state_to_idling
+    # * before/after/after_failure_to-_transition_state
+    # * before/after/after_failure_to-_transition
+    #
+    # The following class shows an example of some of these hooks:
+    #
+    #   class VehicleObserver < ActiveModel::Observer
+    #     # Callback for :ignite event *before* the transition is performed
+    #     def before_ignite(vehicle, transition)
+    #       # log message
+    #     end
+    #
+    #     # Callback for :ignite event *after* the transition has been performed
+    #     def after_ignite(vehicle, transition)
+    #       # put on seatbelt
+    #     end
+    #
+    #     # Generic transition callback *before* the transition is performed
+    #     def after_transition(vehicle, transition)
+    #       Audit.log(vehicle, transition)
+    #     end
+    #
+    #     def after_failure_to_transition(vehicle, transition)
+    #       Audit.error(vehicle, transition)
+    #     end
+    #   end
+    #
+    # More flexible transition callbacks can be defined directly within the
+    # model as described in StateMachine::Machine#before_transition
+    # and StateMachine::Machine#after_transition.
+    #
+    # To define a single observer for multiple state machines:
+    #
+    #   class StateMachineObserver < ActiveModel::Observer
+    #     observe Vehicle, Switch, Project
+    #
+    #     def after_transition(object, transition)
+    #       Audit.log(object, transition)
+    #     end
+    #   end
+    #
     # == Internationalization
     #
     # Any error message that is generated from performing invalid transitions
@@ -461,7 +519,7 @@ module StateMachines
       # Configures new states with the built-in humanize scheme
       def add_states(*)
         super.each do |new_state|
-          new_state.human_name = ->(state, klass) { translate(klass, :state, state.name) }
+          new_state.human_name ||= ->(state, klass) { translate(klass, :state, state.name) }
         end
       end
 
