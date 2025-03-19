@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
 
   spec.files         = Dir.glob('{lib}/**/*') + %w(LICENSE.txt README.md)
-  spec.test_files    = Dir.glob('test/**/*_test.rb')
+  spec.test_files    = Dir.glob('test/**/{*_test,test_*}.rb')
   spec.require_paths = ['lib']
   spec.required_ruby_version     = '>= 3.0.0'
   spec.add_dependency 'state_machines', '>= 0.6.0'
