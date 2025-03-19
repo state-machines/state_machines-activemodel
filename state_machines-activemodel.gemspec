@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'lib/state_machines/integrations/active_model/version'
 
 Gem::Specification.new do |spec|
