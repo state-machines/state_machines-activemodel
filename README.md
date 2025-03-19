@@ -23,7 +23,7 @@ Or install it yourself as:
 
 ## Dependencies
 
-Active Model 5.1+
+Active Model 6.0+
 
 ## Usage
 
@@ -36,19 +36,19 @@ class Vehicle
   attr_accessor :state
   define_attribute_methods [:state]
 
-  state_machine :initial => :parked do
-    before_transition :parked => any - :parked, :do => :put_on_seatbelt
-    after_transition any => :parked do |vehicle, transition|
+  state_machine initial: :parked do
+    before_transition parked: any - :parked, do: :put_on_seatbelt
+    after_transition any: :parked do |vehicle, transition|
       vehicle.seatbelt = 'off'
     end
     around_transition :benchmark
 
-    event :ignite do
-      transition :parked => :idling
+    event ignite: do
+      transition parked: :idling
     end
 
     state :first_gear, :second_gear do
-      validates_presence_of :seatbelt_on
+      validates :seatbelt_on, presence: true
     end
   end
 
@@ -62,24 +62,6 @@ class Vehicle
     ...
   end
 end
-
-class VehicleObserver < ActiveModel::Observer
-  # Callback for :ignite event *before* the transition is performed
-  def before_ignite(vehicle, transition)
-    # log message
-  end
-
-  # Generic transition callback *after* the transition is performed
-  def after_transition(vehicle, transition)
-    Audit.log(vehicle, transition)
-  end
-
-  # Generic callback after the transition fails to perform
-  def after_failure_to_transition(vehicle, transition)
-    Audit.error(vehicle, transition)
-  end
-end
-
 ```
 
 ## Contributing
