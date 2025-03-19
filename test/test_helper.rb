@@ -1,7 +1,4 @@
-begin
-  require 'pry-byebug'
-rescue LoadError
-end
+require 'debug'
 
 require 'state_machines-activemodel'
 require 'minitest/autorun'
@@ -17,9 +14,9 @@ class BaseTestCase < ActiveSupport::TestCase
     # Simple ActiveModel superclass
     parent = Class.new do
       def self.model_attribute(name)
-        define_method(name) { instance_variable_defined?("@#{name}") ? instance_variable_get("@#{name}") : nil }
+        define_method(name) { instance_variable_defined?(:"@#{name}") ? instance_variable_get(:"@#{name}") : nil }
         define_method("#{name}=") do |value|
-          send("#{name}_will_change!") if self.class <= ActiveModel::Dirty && value != send(name)
+          send(:"#{name}_will_change!") if self.class <= ActiveModel::Dirty && value != send(name)
           instance_variable_set("@#{name}", value)
         end
       end

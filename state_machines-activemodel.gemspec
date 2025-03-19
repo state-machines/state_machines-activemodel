@@ -22,4 +22,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'appraisal', '>= 1'
   spec.add_development_dependency 'minitest', '~> 5.4'
   spec.add_development_dependency 'minitest-reporters'
+  spec.add_development_dependency 'debug'
 end
