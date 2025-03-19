@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   spec.required_ruby_version     = '>= 3.1.0' # jruby is still outdated
   spec.add_dependency 'state_machines', '>= 0.6.0'
-  spec.add_dependency 'activemodel', '>= 6.0'
+  spec.add_dependency 'activemodel', '>= 7.1'
 
   spec.add_development_dependency 'bundler', '>= 1.6'
   spec.add_development_dependency 'rake', '>= 10'
