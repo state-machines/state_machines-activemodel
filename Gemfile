@@ -4,5 +4,7 @@ source 'https://rubygems.org'
 gemspec
 
 platforms :mri do
-  gem 'pry-byebug'
+  gem 'debug'
 end
+
+gem 'mutex_m'
