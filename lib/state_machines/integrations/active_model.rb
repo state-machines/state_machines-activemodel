@@ -25,9 +25,9 @@ module StateMachines
     #     attr_accessor :state
     #     define_attribute_methods [:state]
     #
-    #     state_machine :initial => :parked do
+    #     state_machine initial: :parked do
     #       event :ignite do
-    #         transition :parked => :idling
+    #         transition parked: :idling
     #       end
     #     end
     #   end
@@ -45,7 +45,7 @@ module StateMachines
     #     include ActiveModel::Validations
     #     attr_accessor :state
     #
-    #     state_machine :action => :save do
+    #     state_machine action: :save do
     #       ...
     #     end
     #
@@ -115,36 +115,42 @@ module StateMachines
     # Beware that public event attributes mean that events can be fired
     # whenever mass-assignment is being used.  If you want to prevent malicious
     # users from tampering with events through URLs / forms, the attribute
-    # should be protected like so:
+    # should be protected using Strong Parameters in your controllers:
     #
     #   class Vehicle
-    #     include ActiveModel::MassAssignmentSecurity
     #     attr_accessor :state
-    #
-    #     attr_protected :state_event
-    #     # attr_accessible ... # Alternative technique
     #
     #     state_machine do
     #       ...
     #     end
     #   end
     #
+    #   # In your controller
+    #   def vehicle_params
+    #     params.require(:vehicle).permit(:attribute1, :attribute2) # Exclude :state_event
+    #   end
+    #
     # If you want to only have *some* events be able to fire via mass-assignment,
-    # you can build two state machines (one public and one protected) like so:
+    # you can build two state machines (one private and one public) like so:
     #
     #   class Vehicle
     #     attr_accessor :state
-    #
-    #     attr_protected :state_event # Prevent access to events in the first machine
     #
     #     state_machine do
     #       # Define private events here
     #     end
     #
     #     # Public machine targets the same state as the private machine
-    #     state_machine :public_state, :attribute => :state do
+    #     state_machine :public_state, attribute: :state do
     #       # Define public events here
     #     end
+    #   end
+    #
+    #   # In your controller
+    #   def vehicle_params
+    #     # Only permit events from the public state machine
+    #     params.require(:vehicle).permit(:attribute1, :attribute2, :public_state_event)
+    #     # The private state_event is not permitted
     #   end
     #
     # == Callbacks
@@ -159,7 +165,7 @@ module StateMachines
     #     include ActiveModel::Validations
     #     attr_accessor :state
     #
-    #     state_machine :initial => :parked do
+    #     state_machine initial: :parked do
     #       before_transition any => :idling do |vehicle|
     #         vehicle.put_on_seatbelt
     #       end
@@ -169,7 +175,7 @@ module StateMachines
     #       end
     #
     #       event :ignite do
-    #         transition :parked => :idling
+    #         transition parked: :idling
     #       end
     #     end
     #
@@ -180,64 +186,6 @@ module StateMachines
     #
     # Note, also, that the transition can be accessed by simply defining
     # additional arguments in the callback block.
-    #
-    # == Observers
-    #
-    # In order to hook in observer support for your application, the
-    # ActiveModel::Observing feature must be included.  This can be added by including the
-    # https://github.com/state-machines/state_machines-activemodel-observers gem in your 
-    # Gemfile. Because of the way
-    # ActiveModel observers are designed, there is less flexibility around the
-    # specific transitions that can be hooked in.  However, a large number of
-    # hooks *are* supported.  For example, if a transition for a object's
-    # +state+ attribute changes the state from +parked+ to +idling+ via the
-    # +ignite+ event, the following observer methods are supported:
-    # * before/after/after_failure_to-_ignite_from_parked_to_idling
-    # * before/after/after_failure_to-_ignite_from_parked
-    # * before/after/after_failure_to-_ignite_to_idling
-    # * before/after/after_failure_to-_ignite
-    # * before/after/after_failure_to-_transition_state_from_parked_to_idling
-    # * before/after/after_failure_to-_transition_state_from_parked
-    # * before/after/after_failure_to-_transition_state_to_idling
-    # * before/after/after_failure_to-_transition_state
-    # * before/after/after_failure_to-_transition
-    #
-    # The following class shows an example of some of these hooks:
-    #
-    #   class VehicleObserver < ActiveModel::Observer
-    #     # Callback for :ignite event *before* the transition is performed
-    #     def before_ignite(vehicle, transition)
-    #       # log message
-    #     end
-    #
-    #     # Callback for :ignite event *after* the transition has been performed
-    #     def after_ignite(vehicle, transition)
-    #       # put on seatbelt
-    #     end
-    #
-    #     # Generic transition callback *before* the transition is performed
-    #     def after_transition(vehicle, transition)
-    #       Audit.log(vehicle, transition)
-    #     end
-    #
-    #     def after_failure_to_transition(vehicle, transition)
-    #       Audit.error(vehicle, transition)
-    #     end
-    #   end
-    #
-    # More flexible transition callbacks can be defined directly within the
-    # model as described in StateMachine::Machine#before_transition
-    # and StateMachine::Machine#after_transition.
-    #
-    # To define a single observer for multiple state machines:
-    #
-    #   class StateMachineObserver < ActiveModel::Observer
-    #     observe Vehicle, Switch, Project
-    #
-    #     def after_transition(object, transition)
-    #       Audit.log(object, transition)
-    #     end
-    #   end
     #
     # == Internationalization
     #
@@ -308,9 +256,9 @@ module StateMachines
     #     include ActiveModel::Dirty
     #     attr_accessor :state
     #
-    #     state_machine :initial => :parked do
+    #     state_machine initial: :parked do
     #       event :park do
-    #         transition :parked => :parked, ...
+    #         transition parked: :parked, ...
     #       end
     #     end
     #   end
@@ -322,7 +270,7 @@ module StateMachines
     #
     #   class Vehicle
     #     ...
-    #     state_machine :initial => :parked do
+    #     state_machine initial: :parked do
     #       before_transition all => same do |vehicle|
     #         vehicle.state_will_change!
     #
@@ -344,7 +292,7 @@ module StateMachines
     #   module StateMachine::Integrations::MyORM
     #     include ActiveModel
     #
-    #     mattr_accessor(:defaults) { :action => :persist }
+    #     mattr_accessor(:defaults) { action: :persist }
     #
     #     def self.matches?(klass)
     #       defined?(::MyORM::Base) && klass <= ::MyORM::Base
