@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.files         = Dir.glob('{lib}/**/*') + %w(LICENSE.txt README.md)
   spec.test_files    = Dir.glob('test/**/{*_test,test_*}.rb')
   spec.require_paths = ['lib']
-  spec.required_ruby_version     = '>= 3.0.0'
+  spec.required_ruby_version     = '>= 3.1.0' # jruby is still outdated
   spec.add_dependency 'state_machines', '>= 0.6.0'
   spec.add_dependency 'activemodel', '>= 6.0'
 
