@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'active_model'
 require 'active_support/core_ext/hash/keys'
-require 'active_support/core_ext/module/attribute_accessors.rb'
+require 'active_support/core_ext/module/attribute_accessors'
 require 'state_machines'
 require 'state_machines/integrations/base'
 require 'state_machines/integrations/active_model/version'
@@ -83,7 +85,7 @@ module StateMachines
     #     state_machine do
     #       ...
     #       state :first_gear, :second_gear do
-    #         validate {|vehicle| vehicle.speed_is_legal}
+    #         validate { |vehicle| vehicle.speed_is_legal }
     #       end
     #     end
     #   end
@@ -292,7 +294,7 @@ module StateMachines
     #   module StateMachine::Integrations::MyORM
     #     include ActiveModel
     #
-    #     mattr_accessor(:defaults) { action: :persist }
+    #     mattr_accessor(:defaults) { { action: :persist } }
     #
     #     def self.matches?(klass)
     #       defined?(::MyORM::Base) && klass <= ::MyORM::Base
@@ -324,10 +326,7 @@ module StateMachines
       def invalidate(object, attribute, message, values = [])
         if supports_validations?
           attribute = self.attribute(attribute)
-          options = values.reduce({}) do |h, (key, value)|
-            h[key] = value
-            h
-          end
+          options = values.to_h { |key, value| [key, value] }
 
           default_options = default_error_message_options(object, attribute, message)
           object.errors.add(attribute, message, **options, **default_options)
@@ -337,7 +336,7 @@ module StateMachines
       # Describes the current validation errors on the given object.  If none
       # are specific, then the default error is interpeted as a "halt".
       def errors_for(object)
-        object.errors.empty? ? 'Transition halted' : object.errors.full_messages * ', '
+        object.errors.empty? ? 'Transition halted' : object.errors.full_messages.join(', ')
       end
 
       # Resets any errors previously added when invalidating the given object

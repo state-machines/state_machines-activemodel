@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # ActiveModel integrations
 appraise 'active_model_7.1' do
   gem 'activemodel', '~> 7.1.0'
