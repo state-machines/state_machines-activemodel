@@ -353,12 +353,22 @@ module StateMachines
 
       def define_state_initializer
         define_helper :instance, <<-end_eval, __FILE__, __LINE__ + 1
-          def initialize(**params)
-            params.transform_keys! do |key|
+          def initialize(params = nil, **kwargs)
+            # Support both positional hash and keyword arguments
+            attrs = params.nil? ? kwargs : params
+          #{'  '}
+            attrs.transform_keys! do |key|
               self.class.attribute_aliases[key.to_s] || key.to_s
             end if self.class.respond_to?(:attribute_aliases)
 
-            self.class.state_machines.initialize_states(self, {}, params) { super }
+            # Call super with the appropriate arguments based on what we received
+            self.class.state_machines.initialize_states(self, {}, attrs) do
+              if params
+                super(params)
+              else
+                super(**kwargs)
+              end
+            end
           end
         end_eval
       end
