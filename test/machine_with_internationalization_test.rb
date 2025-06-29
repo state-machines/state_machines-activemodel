@@ -56,7 +56,7 @@ class MachineWithInternationalizationTest < BaseTestCase
 
     machine = StateMachines::Machine.new(@model)
     machine.state :parked
-    assert_equal 'shutdown', machine.state(:parked).human_name
+    assert_equal 'shutdown', machine.state(:parked).human_name(@model)
   end
 
   def test_should_allow_customized_state_key_scoped_to_class
@@ -67,7 +67,7 @@ class MachineWithInternationalizationTest < BaseTestCase
     machine = StateMachines::Machine.new(@model)
     machine.state :parked
 
-    assert_equal 'shutdown', machine.state(:parked).human_name
+    assert_equal 'shutdown', machine.state(:parked).human_name(@model)
   end
 
   def test_should_allow_customized_state_key_scoped_to_machine
@@ -78,7 +78,7 @@ class MachineWithInternationalizationTest < BaseTestCase
     machine = StateMachines::Machine.new(@model)
     machine.state :parked
 
-    assert_equal 'shutdown', machine.state(:parked).human_name
+    assert_equal 'shutdown', machine.state(:parked).human_name(@model)
   end
 
   def test_should_allow_customized_state_key_unscoped
@@ -89,7 +89,7 @@ class MachineWithInternationalizationTest < BaseTestCase
     machine = StateMachines::Machine.new(@model)
     machine.state :parked
 
-    assert_equal 'shutdown', machine.state(:parked).human_name
+    assert_equal 'shutdown', machine.state(:parked).human_name(@model)
   end
 
   def test_should_support_nil_state_key
@@ -99,7 +99,7 @@ class MachineWithInternationalizationTest < BaseTestCase
 
     machine = StateMachines::Machine.new(@model)
 
-    assert_equal 'empty', machine.state(nil).human_name
+    assert_equal 'empty', machine.state(nil).human_name(@model)
   end
 
   def test_should_allow_customized_event_key_scoped_to_class_and_machine
@@ -110,7 +110,7 @@ class MachineWithInternationalizationTest < BaseTestCase
     machine = StateMachines::Machine.new(@model)
     machine.event :park
 
-    assert_equal 'stop', machine.event(:park).human_name
+    assert_equal 'stop', machine.event(:park).human_name(@model)
   end
 
   def test_should_allow_customized_event_key_scoped_to_class
@@ -121,7 +121,7 @@ class MachineWithInternationalizationTest < BaseTestCase
     machine = StateMachines::Machine.new(@model)
     machine.event :park
 
-    assert_equal 'stop', machine.event(:park).human_name
+    assert_equal 'stop', machine.event(:park).human_name(@model)
   end
 
   def test_should_allow_customized_event_key_scoped_to_machine
@@ -132,7 +132,7 @@ class MachineWithInternationalizationTest < BaseTestCase
     machine = StateMachines::Machine.new(@model)
     machine.event :park
 
-    assert_equal 'stop', machine.event(:park).human_name
+    assert_equal 'stop', machine.event(:park).human_name(@model)
   end
 
   def test_should_allow_customized_event_key_unscoped
@@ -143,7 +143,7 @@ class MachineWithInternationalizationTest < BaseTestCase
     machine = StateMachines::Machine.new(@model)
     machine.event :park
 
-    assert_equal 'stop', machine.event(:park).human_name
+    assert_equal 'stop', machine.event(:park).human_name(@model)
   end
 
   def test_should_have_locale_once_in_load_path

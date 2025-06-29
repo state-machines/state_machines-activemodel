@@ -8,7 +8,7 @@ require 'state_machines/integrations/base'
 require 'state_machines/integrations/active_model/version'
 
 module StateMachines
-  module Integrations #:nodoc:
+  module Integrations # :nodoc:
     # Adds support for integrating state machines with ActiveModel classes.
     #
     # == Examples
@@ -345,14 +345,14 @@ module StateMachines
       end
 
       # Runs state events around the object's validation process
-      def around_validation(object)
-        object.class.state_machines.transitions(object, action, after: false).perform { yield }
+      def around_validation(object, &)
+        object.class.state_machines.transitions(object, action, after: false).perform(&)
       end
 
       protected
 
       def define_state_initializer
-        define_helper :instance, <<-end_eval, __FILE__, __LINE__ + 1
+        define_helper :instance, <<-END_EVAL, __FILE__, __LINE__ + 1
           def initialize(params = nil, **kwargs)
             # Support both positional hash and keyword arguments
             attrs = params.nil? ? kwargs : params
@@ -370,7 +370,7 @@ module StateMachines
               end
             end
           end
-        end_eval
+        END_EVAL
       end
 
       # Whether validations are supported in the integration.  Only true if
@@ -388,7 +388,7 @@ module StateMachines
 
       # Gets the terminator to use for callbacks
       def callback_terminator
-        @terminator ||= ->(result) { result == false }
+        @callback_terminator ||= ->(result) { result == false }
       end
 
       # Determines the base scope to use when looking up translations
@@ -418,7 +418,7 @@ module StateMachines
         # Generate all possible translation keys
         translations = ancestors.map { |ancestor| :"#{ancestor.model_name.to_s.underscore}.#{name}.#{group}.#{value}" }
         translations.concat(ancestors.map { |ancestor| :"#{ancestor.model_name.to_s.underscore}.#{group}.#{value}" })
-        translations.concat([:"#{name}.#{group}.#{value}", :"#{group}.#{value}", value.humanize.downcase])
+        translations.push(:"#{name}.#{group}.#{value}", :"#{group}.#{value}", value.humanize.downcase)
         I18n.translate(translations.shift, default: translations, scope: [i18n_scope(klass), :state_machines])
       end
 
@@ -432,10 +432,12 @@ module StateMachines
       def define_state_accessor
         name = self.name
 
+        return unless supports_validations?
+
         owner_class.validates_each(attribute) do |object|
           machine = object.class.state_machine(name)
           machine.invalidate(object, :state, :invalid) unless machine.states.match(object)
-        end if supports_validations?
+        end
       end
 
       # Adds hooks into validation for automatically firing events
@@ -453,7 +455,7 @@ module StateMachines
       # Creates a new callback in the callback chain, always inserting it
       # before the default Observer callbacks that were created after
       # initialization.
-      def add_callback(type, options, &block)
+      def add_callback(type, options, &)
         options[:terminator] = callback_terminator
         super
       end
@@ -461,14 +463,24 @@ module StateMachines
       # Configures new states with the built-in humanize scheme
       def add_states(*)
         super.each do |new_state|
-          new_state.human_name = ->(state, klass) { translate(klass, :state, state.name) }
+          # Only set the translation lambda if human_name is the default auto-generated value
+          # This preserves user-specified human names while still applying translations for defaults
+          default_human_name = new_state.name ? new_state.name.to_s.tr('_', ' ') : 'nil'
+          if new_state.human_name == default_human_name
+            new_state.human_name = ->(state, klass) { translate(klass, :state, state.name) }
+          end
         end
       end
 
       # Configures new event with the built-in humanize scheme
       def add_events(*)
         super.each do |new_event|
-          new_event.human_name = ->(event, klass) { translate(klass, :event, event.name) }
+          # Only set the translation lambda if human_name is the default auto-generated value
+          # This preserves user-specified human names while still applying translations for defaults
+          default_human_name = new_event.name ? new_event.name.to_s.tr('_', ' ') : 'nil'
+          if new_event.human_name == default_human_name
+            new_event.human_name = ->(event, klass) { translate(klass, :event, event.name) }
+          end
         end
       end
     end
