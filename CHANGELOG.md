@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.31.0](https://github.com/state-machines/state_machines-activemodel/compare/state_machines-activemodel/v0.10.0...state_machines-activemodel/v0.31.0) (2025-06-29)
+
+
+### Features
+
+* modernize ActiveModel integration with backward compatibility ([a0a6c5f](https://github.com/state-machines/state_machines-activemodel/commit/a0a6c5f033687913b669fbc78e0f42c782502c83))
+* modernize ActiveModel integration with backward compatibility ([8b6a779](https://github.com/state-machines/state_machines-activemodel/commit/8b6a779e5683dcdef18f2e082f261c581e2a9d32))
+* modernize ActiveModel integration with Ruby 3+ patterns ([6a15719](https://github.com/state-machines/state_machines-activemodel/commit/6a15719013d2a734ff33e60482e624c37022c8ba))
+* modernize ActiveModel integration with Ruby 3+ patterns ([f3ee659](https://github.com/state-machines/state_machines-activemodel/commit/f3ee6592f5fa49878885eebc927844ca1ab91038))
+
+
+### Bug Fixes
+
+* preserve custom human_name for both states and events ([3e19695](https://github.com/state-machines/state_machines-activemodel/commit/3e196956f050a85e1074bc4c108eb77b27a16b07))
+* preserve custom human_name for both states and events ([d7a41ba](https://github.com/state-machines/state_machines-activemodel/commit/d7a41bad420f0e999089fa87b0c00bc34f7b93f6)), closes [#37](https://github.com/state-machines/state_machines-activemodel/issues/37) [#38](https://github.com/state-machines/state_machines-activemodel/issues/38)
+
 ## [0.10.0](https://github.com/state-machines/state_machines-activemodel/compare/state_machines-activemodel-v0.9.0...state_machines-activemodel/v0.10.0) (2025-06-12)
 
 
