@@ -9,3 +9,4 @@ platforms :mri do
   gem 'debug'
 end
 
+gem 'rubocop'
