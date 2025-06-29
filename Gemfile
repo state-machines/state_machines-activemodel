@@ -9,4 +9,3 @@ platforms :mri do
   gem 'debug'
 end
 
-gem 'mutex_m'

@@ -324,13 +324,13 @@ module StateMachines
 
       # Adds a validation error to the given object
       def invalidate(object, attribute, message, values = [])
-        if supports_validations?
-          attribute = self.attribute(attribute)
-          options = values.to_h { |key, value| [key, value] }
+        return unless supports_validations?
 
-          default_options = default_error_message_options(object, attribute, message)
-          object.errors.add(attribute, message, **options, **default_options)
-        end
+        attribute = self.attribute(attribute)
+        options = values.to_h
+
+        default_options = default_error_message_options(object, attribute, message)
+        object.errors.add(attribute, message, **options, **default_options)
       end
 
       # Describes the current validation errors on the given object.  If none
@@ -353,7 +353,7 @@ module StateMachines
 
       def define_state_initializer
         define_helper :instance, <<-end_eval, __FILE__, __LINE__ + 1
-          def initialize(params = {})
+          def initialize(**params)
             params.transform_keys! do |key|
               self.class.attribute_aliases[key.to_s] || key.to_s
             end if self.class.respond_to?(:attribute_aliases)
