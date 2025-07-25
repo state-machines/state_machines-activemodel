@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.31.1](https://github.com/state-machines/state_machines-activemodel/compare/state_machines-activemodel/v0.31.0...state_machines-activemodel/v0.31.1) (2025-07-25)
+
+
+### Bug Fixes
+
+* update tests to avoid warning syntax ([#47](https://github.com/state-machines/state_machines-activemodel/issues/47)) ([51fe6fc](https://github.com/state-machines/state_machines-activemodel/commit/51fe6fc2dc6977b40b733aa940faba4db3dc48d6))
+
 ## [0.31.0](https://github.com/state-machines/state_machines-activemodel/compare/state_machines-activemodel/v0.10.0...state_machines-activemodel/v0.31.0) (2025-06-29)
 
 
