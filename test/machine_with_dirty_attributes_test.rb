@@ -5,12 +5,12 @@ require 'test_helper'
 class MachineWithDirtyAttributesTest < BaseTestCase
   def setup
     @model = new_model do
-      include ActiveModel::Dirty
-      define_attribute_methods [:state]
-
       def save
-        super.tap do
+        if valid?
           changes_applied
+          true
+        else
+          false
         end
       end
     end
@@ -25,17 +25,17 @@ class MachineWithDirtyAttributesTest < BaseTestCase
   end
 
   def test_should_include_state_in_changed_attributes
-    assert_equal %w(state), @record.changed
+    assert_equal %w[state], @record.changed
   end
 
   def test_should_track_attribute_change
-    assert_equal %w(parked idling), @record.changes['state']
+    assert_equal %w[parked idling], @record.changes['state']
   end
 
   def test_should_not_reset_changes_on_multiple_transitions
     transition = StateMachines::Transition.new(@record, @machine, :ignite, :idling, :idling)
     transition.perform
 
-    assert_equal %w(parked idling), @record.changes['state']
+    assert_equal %w[parked idling], @record.changes['state']
   end
 end

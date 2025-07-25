@@ -4,9 +4,8 @@ require 'test_helper'
 
 class MachineWithNonModelStateAttributeUndefinedTest < BaseTestCase
   def setup
-    @model = new_model do
-      def initialize
-      end
+    @model = new_plain_model do
+      def initialize; end
     end
 
     @machine = StateMachines::Machine.new(@model, :status, initial: :parked, integration: :active_model)

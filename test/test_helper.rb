@@ -11,45 +11,40 @@ I18n.enforce_available_locales = true
 
 class BaseTestCase < ActiveSupport::TestCase
   protected
-  # Creates a new ActiveModel model (and the associated table)
-  def new_model(&block)
-    # Simple ActiveModel superclass
-    parent = Class.new do
-      def self.model_attribute(name)
-        define_method(name) { instance_variable_defined?(:"@#{name}") ? instance_variable_get(:"@#{name}") : nil }
-        define_method("#{name}=") do |value|
-          send(:"#{name}_will_change!") if self.class <= ActiveModel::Dirty && value != send(name)
-          instance_variable_set("@#{name}", value)
-        end
-      end
 
-      def self.create
-        object = new
-        object.save
-        object
-      end
-
-      def initialize(attrs = {})
-        attrs.each { |attr, value| send("#{attr}=", value) }
-      end
-
-      def attributes
-        @attributes ||= {}
-      end
-
-      def save
-        true
+  # Creates a plain model without ActiveModel features
+  def new_plain_model(&block)
+    model = Class.new do
+      def self.name
+        'Foo'
       end
     end
 
-    model = Class.new(parent) do
+    model.class_eval(&block) if block_given?
+
+    model
+  end
+
+  # Creates a new ActiveModel model (and the associated table)
+  def new_model(&block)
+    model = Class.new do
+      include ActiveModel::Model
+      include ActiveModel::Attributes
+      include ActiveModel::Dirty
+
+      attribute :state, :string
+
       def self.name
         'Foo'
       end
 
-      model_attribute :state
+      def self.create
+        new.tap { |instance| instance.save if instance.respond_to?(:save) }
+      end
     end
+
     model.class_eval(&block) if block_given?
+
     model
   end
 end

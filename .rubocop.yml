@@ -1,0 +1,34 @@
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.0
+  SuggestExtensions: false
+
+# Allow nested method definitions in tests - they're used for test setup
+Lint/NestedMethodDefinition:
+  Exclude:
+    - 'test/**/*_test.rb'
+
+# Test setup methods can be longer
+Metrics/MethodLength:
+  Exclude:
+    - 'test/**/*_test.rb'
+    - 'test/test_helper.rb'
+  Max: 10
+
+# Use bracket style for percent literals
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%w': '[]'
+    '%W': '[]'
+    '%i': '[]'
+    '%I': '[]'
+
+# The save method in tests returns a boolean, it's not a predicate method
+Naming/PredicateMethod:
+  Exclude:
+    - 'test/**/*_test.rb'
+
+# In tests, we sometimes need empty initialize methods for stubbing
+Style/RedundantInitialize:
+  Exclude:
+    - 'test/**/*_test.rb'
