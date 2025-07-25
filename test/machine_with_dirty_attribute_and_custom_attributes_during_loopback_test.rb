@@ -5,13 +5,14 @@ require 'test_helper'
 class MachineWithDirtyAttributeAndCustomAttributesDuringLoopbackTest < BaseTestCase
   def setup
     @model = new_model do
-      include ActiveModel::Dirty
-      model_attribute :status
-      define_attribute_methods [:status]
+      attribute :status, :string
 
       def save
-        super.tap do
+        if valid?
           changes_applied
+          true
+        else
+          false
         end
       end
     end

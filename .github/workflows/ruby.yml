@@ -12,9 +12,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby-version: ['3.2', '3.3', '3.4']
+        ruby-version: ['3.2', '3.4']
         gemfiles:
-          - gemfiles/active_model_7.1.gemfile
           - gemfiles/active_model_7.2.gemfile
           - gemfiles/active_model_8.0.gemfile
           - gemfiles/active_model_edge.gemfile

@@ -5,7 +5,7 @@ require 'test_helper'
 class MachineMultipleTest < BaseTestCase
   def setup
     @model = new_model do
-      model_attribute :status
+      attribute :status, :string
     end
 
     @state_machine = StateMachines::Machine.new(@model, initial: :parked, integration: :active_model)

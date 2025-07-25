@@ -20,7 +20,7 @@ class IntegrationTest < BaseTestCase
   end
 
   def test_should_not_match_if_class_does_not_include_active_model_features
-    refute StateMachines::Integrations::ActiveModel.matches?(new_model)
+    refute StateMachines::Integrations::ActiveModel.matches?(new_plain_model)
   end
 
   def test_should_have_no_defaults

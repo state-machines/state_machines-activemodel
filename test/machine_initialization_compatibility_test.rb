@@ -6,7 +6,6 @@ class MachineInitializationCompatibilityTest < BaseTestCase
   def setup
     @model = new_model do
       include ActiveModel::Validations
-      attr_accessor :state
     end
 
     @machine = StateMachines::Machine.new(@model, initial: :parked)
@@ -31,9 +30,7 @@ class MachineInitializationCompatibilityTest < BaseTestCase
 
   def test_should_handle_attribute_aliases
     @model.class_eval do
-      def self.attribute_aliases
-        { 'status' => 'state' }
-      end
+      alias_attribute :status, :state
     end
 
     record = @model.new(status: 'idling')

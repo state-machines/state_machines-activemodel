@@ -5,12 +5,12 @@ require 'test_helper'
 class MachineWithDirtyAttributeAndStateEventsTest < BaseTestCase
   def setup
     @model = new_model do
-      include ActiveModel::Dirty
-      define_attribute_methods [:state]
-
       def save
-        super.tap do
+        if valid?
           changes_applied
+          true
+        else
+          false
         end
       end
     end
