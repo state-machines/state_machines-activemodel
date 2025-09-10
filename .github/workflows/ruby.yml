@@ -16,7 +16,7 @@ jobs:
         gemfiles:
           - gemfiles/active_model_7.2.gemfile
           - gemfiles/active_model_8.0.gemfile
-          - gemfiles/active_model_edge.gemfile
+          - gemfiles/active_model_8.1.gemfile
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfiles }}
     steps:
