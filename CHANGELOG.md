@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.31.2](https://github.com/state-machines/state_machines-activemodel/compare/state_machines-activemodel/v0.31.1...state_machines-activemodel/v0.31.2) (2025-11-03)
+
+
+### Features
+
+* upgrade to Rails 8.1.0 stable and state_machines 0.100.4 ([#51](https://github.com/state-machines/state_machines-activemodel/issues/51)) ([eba0dd1](https://github.com/state-machines/state_machines-activemodel/commit/eba0dd10354015d10e59b6f55b2c543524dc50af))
+
 ## [0.31.1](https://github.com/state-machines/state_machines-activemodel/compare/state_machines-activemodel/v0.31.0...state_machines-activemodel/v0.31.1) (2025-07-25)
 
 
