@@ -10,5 +10,5 @@ appraise 'active_model_8.0' do
 end
 
 appraise 'active_model_8.1' do
-  gem 'activemodel', '~> 8.1.0.beta'
+  gem 'activemodel', '~> 8.1.0'
 end
