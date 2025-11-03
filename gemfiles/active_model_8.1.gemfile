@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 
 gem "rubocop"
-gem "activemodel", "~> 8.1.0.beta"
+gem "activemodel", "~> 8.1.0"
 
 platforms :mri do
   gem "debug"
