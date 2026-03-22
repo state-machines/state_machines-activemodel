@@ -3,8 +3,7 @@
     ".": {
       "release-type": "ruby",
       "package-name": "state_machines-activemodel",
-      "version-file": "lib/state_machines/integrations/active_model/version.rb",
-      "bump-patch-for-minor-pre-major": true
+      "version-file": "lib/state_machines/integrations/active_model/version.rb"
     }
   }
 }
