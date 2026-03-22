@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.102.0](https://github.com/state-machines/state_machines-activemodel/compare/state_machines-activemodel/v0.101.0...state_machines-activemodel/v0.102.0) (2026-03-22)
+
+
+### Bug Fixes
+
+* bump state_machines min to 0.101.0 and update checkout to v6 ([d8b72c9](https://github.com/state-machines/state_machines-activemodel/commit/d8b72c9f123bf8b62086e4490c3af3ac475c310b))
+* remove bump-patch-for-minor-pre-major ([7eff50d](https://github.com/state-machines/state_machines-activemodel/commit/7eff50d10fc50906a4fdc8645922a9decc96fff4))
+
 ## [0.101.0](https://github.com/state-machines/state_machines-activemodel/compare/state_machines-activemodel-v0.100.0...state_machines-activemodel/v0.101.0) (2025-11-03)
 
 
