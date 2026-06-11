@@ -462,26 +462,22 @@ module StateMachines
 
       # Configures new states with the built-in humanize scheme
       def add_states(*)
-        super.each do |new_state|
-          # Only set the translation lambda if human_name is the default auto-generated value
-          # This preserves user-specified human names while still applying translations for defaults
-          default_human_name = new_state.name ? new_state.name.to_s.tr('_', ' ') : 'nil'
-          if new_state.human_name == default_human_name
-            new_state.human_name = ->(state, klass) { translate(klass, :state, state.name) }
-          end
-        end
+        super.each { |new_state| apply_default_human_name(new_state, :state) }
       end
 
       # Configures new event with the built-in humanize scheme
       def add_events(*)
-        super.each do |new_event|
-          # Only set the translation lambda if human_name is the default auto-generated value
-          # This preserves user-specified human names while still applying translations for defaults
-          default_human_name = new_event.name ? new_event.name.to_s.tr('_', ' ') : 'nil'
-          if new_event.human_name == default_human_name
-            new_event.human_name = ->(event, klass) { translate(klass, :event, event.name) }
-          end
-        end
+        super.each { |new_event| apply_default_human_name(new_event, :event) }
+      end
+
+      # Only sets the translation lambda if human_name is the default
+      # auto-generated value.  This preserves user-specified human names while
+      # still applying translations for defaults
+      def apply_default_human_name(node, scope)
+        default_human_name = node.name ? node.name.to_s.tr('_', ' ') : 'nil'
+        return unless node.human_name == default_human_name
+
+        node.human_name = ->(obj, klass) { translate(klass, scope, obj.name) }
       end
     end
     register(ActiveModel)
