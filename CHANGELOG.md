@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.200.0](https://github.com/state-machines/state_machines-activemodel/compare/state_machines-activemodel/v0.102.0...state_machines-activemodel/v0.200.0) (2026-06-11)
+
+
+### Features
+
+* extract shared human name translation for states and events ([2187144](https://github.com/state-machines/state_machines-activemodel/commit/21871449a9639d37ef39ba02f375779d695a4ba0))
+* extract shared human name translation for states and events ([56c35d6](https://github.com/state-machines/state_machines-activemodel/commit/56c35d6304ebab6b0601448062d7aba49f687d52))
+
 ## [0.102.0](https://github.com/state-machines/state_machines-activemodel/compare/state_machines-activemodel/v0.101.0...state_machines-activemodel/v0.102.0) (2026-03-22)
 
 
