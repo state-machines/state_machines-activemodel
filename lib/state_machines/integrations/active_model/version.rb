@@ -3,7 +3,7 @@
 module StateMachines
   module Integrations
     module ActiveModel
-      VERSION = '0.200.0'
+      VERSION = '1.0.0'
     end
   end
 end
