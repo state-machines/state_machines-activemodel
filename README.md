@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Dependencies
 
-Active Model 7.1+
+Active Model 8.0+
 
 ## Usage
 

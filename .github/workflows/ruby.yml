@@ -14,7 +14,6 @@ jobs:
       matrix:
         ruby-version: ['3.4', '4.0']
         gemfiles:
-          - gemfiles/active_model_7.2.gemfile
           - gemfiles/active_model_8.0.gemfile
           - gemfiles/active_model_8.1.gemfile
         include:

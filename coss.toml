@@ -32,8 +32,8 @@ security_policy = ""
 languages = ["ruby"]
 
 [frameworks]
-rails = "7.1+"
-activemodel = "7.1+"
+rails = "8.0+"
+activemodel = "8.0+"
 
 supported_platforms = ["linux", "darwin", "windows"]
 
@@ -99,7 +99,7 @@ apidocs = ""
 # 13. Environment and Runtime Info
 [environments]
 ruby = "3.1+"
-rails = "7.1+"
+rails = "8.0+"
 
 ##########################################################
 # 15. Project Classification
@@ -141,7 +141,7 @@ ai_summary_enabled = false
 [dependencies]
 # Core dependency
 state_machines = ">= 0.31.0"
-activemodel = ">= 7.1"
+activemodel = ">= 8.0"
 
 [related_projects]
 # Other gems in the state_machines ecosystem
@@ -162,7 +162,7 @@ features = [
     "mass assignment protection",
     "validation errors on invalid transitions",
 ]
-tested_versions = ["7.1", "7.2", "8.0", "edge"]
+tested_versions = ["8.0", "8.1", "edge"]
 
 ##########################################################
 # 22. Testing Commands
@@ -170,4 +170,4 @@ tested_versions = ["7.1", "7.2", "8.0", "edge"]
 specific_file = "ruby -Itest test/path/to/test.rb"
 specific_test = "ruby -Itest test/path/to/test.rb:line_number"
 appraisal_setup = "appraisal install"
-rails_version_test = "appraisal rails-7-1 rake test"
+rails_version_test = "appraisal active-model-8-0 rake test"
