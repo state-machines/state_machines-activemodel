@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.0](https://github.com/state-machines/state_machines-activemodel/compare/state_machines-activemodel/v0.200.0...state_machines-activemodel/v1.0.0) (2026-08-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* ActiveModel 8.0+ is now required.
+
+### Features
+
+* drop Rails 7.2 support ([2fd0ee8](https://github.com/state-machines/state_machines-activemodel/commit/2fd0ee86c443d850581303fd93f385ce4205e520))
+
 ## [0.200.0](https://github.com/state-machines/state_machines-activemodel/compare/state_machines-activemodel/v0.102.0...state_machines-activemodel/v0.200.0) (2026-06-11)
 
 
