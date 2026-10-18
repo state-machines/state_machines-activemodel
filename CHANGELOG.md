@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.300.0](https://github.com/state-machines/state_machines-activemodel/compare/state_machines-activemodel/v0.200.0...state_machines-activemodel/v0.300.0) (2026-10-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* ActiveModel 8.0+ is now required.
+
+### Features
+
+* drop Rails 7.2 support ([2fd0ee8](https://github.com/state-machines/state_machines-activemodel/commit/2fd0ee86c443d850581303fd93f385ce4205e520))
+* run tests with padded_cell on CRuby ([#60](https://github.com/state-machines/state_machines-activemodel/issues/60)) ([352712d](https://github.com/state-machines/state_machines-activemodel/commit/352712d5763daa60b846e4574981f45aa14cb7e1))
+
 ## [0.200.0](https://github.com/state-machines/state_machines-activemodel/compare/state_machines-activemodel/v0.102.0...state_machines-activemodel/v0.200.0) (2026-06-11)
 
 
