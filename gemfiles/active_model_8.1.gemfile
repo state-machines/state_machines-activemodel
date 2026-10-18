@@ -7,6 +7,7 @@ gem "activemodel", "~> 8.1.0"
 
 platforms :mri do
   gem "debug"
+  gem "padded_cell", "~> 0.2"
 end
 
 gemspec path: "../"

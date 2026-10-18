@@ -8,6 +8,7 @@ gemspec
 
 platforms :mri do
   gem 'debug'
+  gem 'padded_cell', '~> 0.2'
 end
 
 gem 'rubocop'
