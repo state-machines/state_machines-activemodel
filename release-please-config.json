@@ -3,8 +3,9 @@
     ".": {
       "release-type": "ruby",
       "package-name": "state_machines-activemodel",
-      "version-file": "lib/state_machines/integrations/active_model/version.rb"
+      "version-file": "lib/state_machines/integrations/active_model/version.rb",
+      "bump-minor-pre-major": true,
+      "release-as": "0.300.0"
     }
   }
 }
-
