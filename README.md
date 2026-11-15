@@ -63,6 +63,32 @@ class Vehicle
 end
 ```
 
+### Why an event was refused
+
+An event method still returns `false` when it is refused, and `errors` is filled
+as before. The `<event>_refusal` reader from state_machines tells the reasons
+apart (`nil` after a success):
+
+```ruby
+vehicle.park                 # => false
+vehicle.park_refusal         # => :no_transition (errors: State cannot transition via "park")
+
+vehicle.ignite               # => false, a before_transition returned false
+vehicle.ignite_refusal       # => :halted
+
+# With `action: :save`, a save that returns false (e.g. failed validations)
+vehicle.shift_up             # => false
+vehicle.shift_up_refusal     # => :action_failed
+vehicle.errors.full_messages # => ["Seatbelt on can't be blank"]
+
+vehicle.shift_up!            # => StateMachines::InvalidTransition, #reason => :action_failed
+```
+
+The reasons are `:no_transition`, `:guard`, `:halted`, `:action_failed` (and
+`:contended` in async mode). They are also recorded for event attributes
+(`vehicle.state_event = 'park'; vehicle.save`). See the state_machines README
+for parallel events.
+
 ## Contributing
 
 1. Fork it ( https://github.com/state-machines/state_machines-activemodel/fork )
